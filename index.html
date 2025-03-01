@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Luigi Kart</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="game-container">
+        <div class="score-container">
+            <div class="score">Score: <span id="score">0</span></div>
+            <div class="high-score">High Score: <span id="highScore">0</span></div>
+            <div class="volume-control">
+                <label for="volumeSlider">Music: </label>
+                <input type="range" id="volumeSlider" min="0" max="1" step="0.1" value="0.5">
+            </div>
+        </div>
+        <div id="startScreen" class="start-screen">
+            <h1>Luigi Kart</h1>
+            <p>Use arrow keys or WASD to control the car</p>
+            <p>Avoid red obstacles and tire strips in early levels</p>
+            <p>Blue enemy cars will appear from level 5</p>
+            <p>Yellow buses will appear from level 10</p>
+            <p>Red snake cars will appear from level 15</p>
+            <p>Collect gold coins for bonus points (+5 points)</p>
+            <p>Collect hearts for extra lives and points (+15 points)</p>
+            <p>Watch out for tire strips - they'll make you spin!</p>
+            <p>You have 3 lives - be careful!</p>
+            <p>Every 10 levels (10, 20, 30, etc.) all points double!</p>
+            <p>Press SPACE to pause/resume</p>
+            <button id="startButton">Start Game</button>
+            <p class="small-text">Press ENTER or SPACE to start</p>
+        </div>
+        <div id="gameOverScreen" class="game-over-screen hidden">
+            <h1>Luigi Crashed!</h1>
+            <p>Your score: <span id="finalScore">0</span></p>
+            <button id="restartButton">Play Again</button>
+            <p class="small-text">Press ENTER or SPACE to restart</p>
+        </div>
+        <div id="gameArea" class="game-area hidden">
+            <div id="road" class="road">
+                <div id="player" class="car player-car"></div>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html> 

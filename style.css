@@ -1,0 +1,418 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #222;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.game-container {
+    position: relative;
+    width: 600px;
+    height: 800px;
+    overflow: hidden;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+.score-container {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    z-index: 10;
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.volume-control {
+    display: flex;
+    align-items: center;
+    margin-top: 5px;
+    font-size: 14px;
+}
+
+.volume-control label {
+    margin-right: 5px;
+    color: #32CD32;
+}
+
+.volume-control input[type="range"] {
+    width: 80px;
+    height: 5px;
+    -webkit-appearance: none;
+    background: #444;
+    outline: none;
+    border-radius: 5px;
+}
+
+.volume-control input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background: #32CD32;
+    cursor: pointer;
+}
+
+.volume-control input[type="range"]::-moz-range-thumb {
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background: #32CD32;
+    cursor: pointer;
+    border: none;
+}
+
+.level-indicator {
+    color: #32CD32;
+    font-weight: bold;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+/* Lives container styles */
+.lives-container {
+    display: flex;
+    gap: 5px;
+    margin-top: 5px;
+}
+
+.heart {
+    font-size: 20px;
+    color: #ff4757;
+    text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+    animation: heartbeat 1s infinite alternate;
+}
+
+@keyframes heartbeat {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.2);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+/* Player hit animation */
+.player-hit {
+    animation: shake 0.5s ease-in-out;
+}
+
+/* Player scrape animation - less severe than a hit */
+.player-scrape {
+    animation: tilt 0.3s ease-in-out;
+    border-right: 3px solid #ff9900;
+    border-left: 3px solid #ff9900;
+}
+
+@keyframes tilt {
+    0%, 100% {
+        transform: rotate(0deg);
+    }
+    25% {
+        transform: rotate(5deg);
+    }
+    75% {
+        transform: rotate(-5deg);
+    }
+}
+
+@keyframes shake {
+    0%, 100% {
+        transform: translateX(0);
+    }
+    20%, 60% {
+        transform: translateX(-5px);
+    }
+    40%, 80% {
+        transform: translateX(5px);
+    }
+}
+
+.level-notification {
+    animation: pulse 0.5s infinite alternate;
+    pointer-events: none;
+}
+
+.unlock-message {
+    display: block;
+    font-size: 24px;
+    color: #4bcffa; /* Blue color to match enemy cars */
+    margin-top: 10px;
+    text-shadow: 0 0 8px rgba(0, 0, 0, 0.8);
+}
+
+.bus-unlock {
+    color: #FFCC00; /* Yellow color to match buses */
+}
+
+.snake-unlock {
+    color: #ff4757; /* Red color to match snake cars */
+}
+
+.points-doubled {
+    color: #32CD32; /* Green color to match Luigi's theme */
+    font-weight: bold;
+    animation: glow 1s infinite alternate;
+}
+
+@keyframes glow {
+    from {
+        text-shadow: 0 0 5px rgba(50, 205, 50, 0.5);
+    }
+    to {
+        text-shadow: 0 0 15px rgba(50, 205, 50, 1);
+    }
+}
+
+@keyframes pulse {
+    from {
+        transform: translate(-50%, -50%) scale(1);
+    }
+    to {
+        transform: translate(-50%, -50%) scale(1.1);
+    }
+}
+
+.start-screen, .game-over-screen {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 20;
+    text-align: center;
+}
+
+.start-screen h1, .game-over-screen h1 {
+    font-size: 36px;
+    margin-bottom: 20px;
+    color: #32CD32;
+}
+
+.start-screen p, .game-over-screen p {
+    margin-bottom: 30px;
+    font-size: 18px;
+}
+
+button {
+    background-color: #32CD32;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    font-size: 18px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #228B22;
+}
+
+.hidden {
+    display: none;
+}
+
+.game-area {
+    width: 100%;
+    height: 100%;
+    background-color: #333;
+    position: relative;
+    overflow: hidden;
+}
+
+.road {
+    width: 100%;
+    height: 100%;
+    background-color: #444;
+    position: relative;
+    overflow: hidden;
+    background-image: 
+        repeating-linear-gradient(
+            to bottom,
+            transparent 0,
+            transparent 50px,
+            #fff 50px,
+            #fff 70px
+        ),
+        repeating-linear-gradient(
+            to bottom,
+            transparent 0,
+            transparent 50px,
+            #fff 50px,
+            #fff 70px
+        ),
+        repeating-linear-gradient(
+            to bottom,
+            transparent 0,
+            transparent 50px,
+            #fff 50px,
+            #fff 70px
+        );
+    background-position: 150px 0, 300px 0, 450px 0;
+    background-size: 30px 100px;
+    background-repeat: repeat-y;
+    animation: moveRoad 0.5s linear infinite;
+}
+
+@keyframes moveRoad {
+    0% {
+        background-position: 150px 0, 300px 0, 450px 0;
+    }
+    100% {
+        background-position: 150px 100px, 300px 100px, 450px 100px;
+    }
+}
+
+.car {
+    position: absolute;
+    width: 50px;
+    height: 80px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    z-index: 5;
+}
+
+.player-car {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 80"><rect x="10" y="5" width="30" height="70" rx="5" fill="%2332CD32"/><rect x="15" y="15" width="20" height="15" rx="2" fill="%23333"/><rect x="15" y="50" width="20" height="15" rx="2" fill="%23333"/><rect x="5" y="20" width="5" height="10" fill="%23333"/><rect x="5" y="50" width="5" height="10" fill="%23333"/><rect x="40" y="20" width="5" height="10" fill="%23333"/><rect x="40" y="50" width="5" height="10" fill="%23333"/></svg>');
+    bottom: 50px;
+    left: 275px;
+}
+
+.enemy-car {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 80"><rect x="10" y="5" width="30" height="70" rx="5" fill="%234bcffa"/><rect x="15" y="15" width="20" height="15" rx="2" fill="%23333"/><rect x="15" y="50" width="20" height="15" rx="2" fill="%23333"/><rect x="5" y="20" width="5" height="10" fill="%23333"/><rect x="5" y="50" width="5" height="10" fill="%23333"/><rect x="40" y="20" width="5" height="10" fill="%23333"/><rect x="40" y="50" width="5" height="10" fill="%23333"/></svg>');
+}
+
+.obstacle {
+    position: absolute;
+    background-color: #ff4757;
+    border-radius: 5px;
+    z-index: 5;
+}
+
+@media (max-width: 650px) {
+    .game-container {
+        width: 320px;
+        height: 480px;
+    }
+    
+    .player-car {
+        left: 135px;
+    }
+}
+
+/* Pause Screen */
+.pause-screen {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+}
+
+.pause-screen.hidden {
+    display: none !important;
+}
+
+.pause-screen h1 {
+    color: white;
+    font-size: 36px;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.pause-screen p {
+    color: #ffcc00;
+    font-size: 18px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+/* Coin animation */
+@keyframes spin {
+    0% {
+        transform: scale(1) rotateY(0deg);
+    }
+    50% {
+        transform: scale(0.8) rotateY(180deg);
+    }
+    100% {
+        transform: scale(1) rotateY(360deg);
+    }
+}
+
+/* Player car spin animation when hitting a banana peel */
+@keyframes carSpin {
+    0% {
+        transform: rotate(0deg);
+    }
+    25% {
+        transform: rotate(90deg);
+    }
+    50% {
+        transform: rotate(180deg);
+    }
+    75% {
+        transform: rotate(270deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.player-spinning {
+    animation: carSpin 1s linear;
+    z-index: 10; /* Make sure spinning car appears above other elements */
+}
+
+.small-text {
+    font-size: 14px;
+    color: #32CD32;
+    margin-top: 10px;
+    font-style: italic;
+}
+
+/* Heart sway animation */
+@keyframes heartSway {
+    0% {
+        transform: translateX(-10px);
+    }
+    50% {
+        transform: translateX(10px);
+    }
+    100% {
+        transform: translateX(-10px);
+    }
+}
+
+.heart-container {
+    animation: heartSway 2s ease-in-out infinite;
+} 

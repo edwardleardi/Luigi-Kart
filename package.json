@@ -1,0 +1,11 @@
+{
+  "name": "luigi-kart",
+  "version": "1.0.0",
+  "description": "Mario kart but better",
+  "scripts": {
+    "start": "npx serve"
+  },
+  "devDependencies": {
+    "serve": "^14.2.1"
+  }
+} 
