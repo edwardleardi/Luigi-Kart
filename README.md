@@ -2,7 +2,7 @@
 
 I vibe coded this so the code is probably really bad, blame sonnet 3.7. Also please don't sue me nintendo! Simple browser-based racing game where you control Luigi's car and avoid obstacles and enemy cars.
 
-Play here: [https://vercel.com/edwards-projects-94cacff3/luigi-kart](https://vercel.com/edwards-projects-94cacff3/luigi-kart)
+Play here: [https://luigi-kart.vercel.app](https://luigi-kart.vercel.app/)
 
 ## How to Play
 
